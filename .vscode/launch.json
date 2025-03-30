@@ -5,7 +5,26 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "server",
+            "name": "Launch Vite Server",
+            "request": "launch",
+            "type": "node",
+            "cwd": "${workspaceFolder}/client",
+            "runtimeExecutable": "npm",
+            "runtimeArgs": [
+                "run",
+                "dev"
+            ],
+            "env": {
+                "NO_COLOR": "1",
+            },
+            "serverReadyAction": {
+                "pattern": "Local:\\s+http://localhost:([0-9]+)/",
+                "action": "openExternally",
+                "uriFormat": "http://localhost:%s",
+            }
+        },
+        {
+            "name": "Launch Express Server",
             "request": "launch",
             "runtimeArgs": [
                 "run",
@@ -17,8 +36,17 @@
             "serverReadyAction": {
                 "pattern": "Server is running on http://localhost:(\\d+)",
                 "action": "openExternally",
-                "uriFormat": "http://localhost:%s/api/hello",
+                "uriFormat": "http://localhost:%s/api/greetings",
             }
-        },
-    ]
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Launch Both",
+            "configurations": [
+                "Launch Vite Server",
+                "Launch Express Server"
+            ]
+        }
+    ],
 }
